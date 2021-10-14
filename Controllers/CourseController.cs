@@ -27,5 +27,24 @@ namespace Cafeine_DinDin_Backend.Controllers
          
             return CourseService.GetInstance().GetCourses();
         }
+
+        [HttpGet("{id}", Name = "GetCourse ")]
+        public ActionResult<Course> Get(string id)
+        {
+            var course = CourseService.GetInstance().GetCourse(id);
+            //tratamento para caso não encontre
+            if (course == null)
+            {
+                return null;
+            }
+
+            return course;
+        }
+
+        [HttpPost]
+        public ActionResult<Course> Create(Course course)
+        {
+            return CourseService.GetInstance().PostCourse(course); 
+        }
     }
 }
