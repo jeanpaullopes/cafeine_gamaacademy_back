@@ -27,7 +27,20 @@ namespace Cafeine_DinDin_Backend.Services
         {
 
             CourseRepository _repo = CourseRepository.GetInstance();
-            return _repo.findAll();
+            return _repo.FindAll();
         }
+
+        public Course GetCourse(string id)
+        {
+            CourseRepository _repo = CourseRepository.GetInstance();
+            return _repo.Find(id);
+        }
+
+        public Course PostCourse(Course course)
+        {
+            CourseRepository _repo = CourseRepository.GetInstance();
+            return _repo.save(course);
+        }
+
     }
 }

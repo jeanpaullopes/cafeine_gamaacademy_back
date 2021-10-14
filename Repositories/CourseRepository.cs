@@ -26,7 +26,7 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
             return instance;
         }
-        public List<Course> findAll()
+        public List<Course> FindAll()
         {
             if(courses.Count == 0)
             {
@@ -34,6 +34,27 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
             return courses;
         }
+
+        public Course Find(string id)
+        {
+            Course course = null;
+            foreach(Course c in courses)
+            {
+                if (c.Id == id)
+                {
+                    course = c;
+                }
+            }
+            return course;
+        }
+
+        public Course save(Course course)
+        {
+            course.Id = "" + (courses.Count + 1);
+            courses.Add(course);
+            return course;
+        }
+
         private void CreateAll()
         {
             for (int c = 1; c < 10; c++)
