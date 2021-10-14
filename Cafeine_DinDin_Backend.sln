@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafeine_DinDin_Backend", "Cafeine_DinDin_Backend.csproj", "{CBC58015-06E0-4B8A-BBE6-180B0C33E02C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBC58015-06E0-4B8A-BBE6-180B0C33E02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC58015-06E0-4B8A-BBE6-180B0C33E02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC58015-06E0-4B8A-BBE6-180B0C33E02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC58015-06E0-4B8A-BBE6-180B0C33E02C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21D5CA86-3D92-4B7D-8C5D-55C67B27C15E}
+	EndGlobalSection
+EndGlobal
