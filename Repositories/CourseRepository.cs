@@ -1,4 +1,6 @@
 ﻿using Cafeine_DinDin_Backend.Entities;
+using Cafeine_DinDin_Backend.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,67 +12,59 @@ namespace Cafeine_DinDin_Backend.Repositories
     public class CourseRepository
     {
 
-        private List<Course> courses = new List<Course>();
-
-        private static CourseRepository instance;
-
-        private CourseRepository()
+        private readonly ApplicationDBContext _context;
+        public CourseRepository(ApplicationDBContext context)
         {
-            
+            _context = context;    
         }
-        public static CourseRepository GetInstance() 
-        {
-            if (instance == null)
-            {
-                instance = new CourseRepository();
-            }
-            return instance;
-        }
+        
         public List<Course> FindAll()
         {
-            if(courses.Count == 0)
-            {
-                CreateAll();
-            }
-            return courses;
+            //uso do Include para carga ansiosa / Eager load
+            return _context.courses.Include(c => c.Teacher).Include(c => c.Lessons).ToList();
         }
 
-        public Course Find(string id)
+        public Course Find(int id)
         {
-            Course course = null;
-            foreach(Course c in courses)
-            {
-                if (c.Id == id)
-                {
-                    course = c;
-                }
-            }
-            return course;
+            return _context.courses.FirstOrDefault(c => c.ID == id); 
         }
 
         public Course save(Course course)
         {
-            course.Id = "" + (courses.Count + 1);
-            courses.Add(course);
+            
             return course;
         }
-
-        private void CreateAll()
+        public async Task<Course> SaveCourse(Course course)
         {
-            for (int c = 1; c < 10; c++)
+            try
             {
-                List<Lesson> lessons = new List<Lesson>();
-                for (int l = 1; l < 4; l++)
-                {
-                    lessons.Add(new Lesson(l, "http://link_" + c + "_" + l, null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
-                }
-                Course course = new Course("" + c,
-                                   "https://capa_" + c,
-                                   new Professor("" + 1, "Prof. Pardal"),
-                                   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                   lessons);
-                courses.Add(course);
+                var result = await _context.AddAsync(course);
+                await _context.SaveChangesAsync();
+
+                return result.Entity;
+
             }
+            catch (Exception e)
+            {
+                return null;
+            }
+
         }
+        public Course UpdateCourse(Course course)
+        {
+            try
+            {
+                var result = _context.Update(course);
+                
+                return result.Entity;
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
+
     }
 }

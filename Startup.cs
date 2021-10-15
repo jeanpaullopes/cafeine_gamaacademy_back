@@ -1,7 +1,10 @@
+using Cafeine_DinDin_Backend.Repositories;
+using Cafeine_DinDin_Backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,10 +31,17 @@ namespace Cafeine_DinDin_Backend
         {
 
             services.AddControllers();
+            
+            services.AddDbContext<ApplicationDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ApplicationDBSettings")));
+            //services.AddSingleton<CourseRepository>();
+            //services.AddSingleton<CourseService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cafeine_DinDin_Backend", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

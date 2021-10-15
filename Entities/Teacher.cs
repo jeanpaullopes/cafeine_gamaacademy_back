@@ -5,15 +5,11 @@ using System.Threading.Tasks;
 
 namespace Cafeine_DinDin_Backend.Entities
 {
-    public class Professor
+    public class Teacher
     {
-        public string Id { get; set; }
+        public string ID { get; set; }
         public string nome { get; set; }
 
-        public Professor(string id, string nome)
-        {
-            Id = id;
-            this.nome = nome;
-        }
+        
     }
 }
