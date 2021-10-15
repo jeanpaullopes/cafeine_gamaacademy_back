@@ -55,7 +55,7 @@ namespace Cafeine_DinDin_Backend.Repositories
             try
             {
                 var result = _context.Update(course);
-                
+                _context.SaveChanges();
                 return result.Entity;
 
             }
