@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cafeine_DinDin_Backend.Migrations
 {
-    public partial class segundaVersao : Migration
+    public partial class primeiraVersao : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,13 +24,13 @@ namespace Cafeine_DinDin_Backend.Migrations
                 name: "teachers",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nome = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_teachers", x => x.ID);
+                    table.PrimaryKey("PK_teachers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,17 +40,17 @@ namespace Cafeine_DinDin_Backend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UrlCover = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TeacherID = table.Column<int>(type: "int", nullable: true),
+                    TeacherId = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_courses", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_courses_teachers_TeacherID",
-                        column: x => x.TeacherID,
+                        name: "FK_courses_teachers_TeacherId",
+                        column: x => x.TeacherId,
                         principalTable: "teachers",
-                        principalColumn: "ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -78,9 +78,9 @@ namespace Cafeine_DinDin_Backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_courses_TeacherID",
+                name: "IX_courses_TeacherId",
                 table: "courses",
-                column: "TeacherID");
+                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_lessons_CourseID",

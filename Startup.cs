@@ -71,6 +71,7 @@ namespace Cafeine_DinDin_Backend
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }

@@ -38,6 +38,12 @@ namespace Cafeine_DinDin_Backend.Repositories
         {
             try
             {
+
+                if (course.Teacher.Id > 0)
+                {
+                    var teacher = await _context.teachers.SingleOrDefaultAsync(t => t.Id == course.Teacher.Id);
+                    course.Teacher = teacher;
+                }
                 var result = await _context.AddAsync(course);
                 await _context.SaveChangesAsync();
 

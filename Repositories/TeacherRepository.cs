@@ -21,7 +21,7 @@ namespace Cafeine_DinDin_Backend.Repositories
 
         public Teacher Find(int id)
         {
-            return _context.teachers.FirstOrDefault(t => t.ID == id);
+            return _context.teachers.FirstOrDefault(t => t.Id == id);
         }
 
         public Teacher save(Teacher teacher)
@@ -66,7 +66,7 @@ namespace Cafeine_DinDin_Backend.Repositories
             {
                 var result = _context.Remove(teacher);
                 _context.SaveChanges();
-                return (result.Entity.ID == teacher.ID);
+                return (result.Entity.Id == teacher.Id);
             }
             catch (Exception e)
             {
