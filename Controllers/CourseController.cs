@@ -1,4 +1,5 @@
 ﻿using Cafeine_DinDin_Backend.Entities;
+using Cafeine_DinDin_Backend.Repositories;
 using Cafeine_DinDin_Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,24 +15,25 @@ namespace Cafeine_DinDin_Backend.Controllers
     public class CourseController : ControllerBase
     {
         
-        private readonly ILogger<CourseController> _logger;
+        private CourseService _courseService;
 
-        public CourseController(ILogger<CourseController> logger)
+        public CourseController(ApplicationDBContext context)
         {
-            _logger = logger;
+            _courseService = new(context);// courseService;
+                 
         }
 
         [HttpGet]
         public ActionResult<List<Course>> Get()
         {
          
-            return CourseService.GetInstance().GetCourses();
+            return _courseService.GetCourses();
         }
 
         [HttpGet("{id}", Name = "GetCourse ")]
-        public ActionResult<Course> Get(string id)
+        public ActionResult<Course> Get(int id)
         {
-            var course = CourseService.GetInstance().GetCourse(id);
+            var course = _courseService.GetCourse(id);
             //tratamento para caso não encontre
             if (course == null)
             {
@@ -42,9 +44,14 @@ namespace Cafeine_DinDin_Backend.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Course> Create(Course course)
+        public Task<Course> Create(Course course)
         {
-            return CourseService.GetInstance().PostCourse(course); 
+            return _courseService.PostCourse(course); 
+        }
+        [HttpPut]
+        public Course Update(Course course)
+        {
+            return _courseService.UpdateCourse(course);
         }
     }
 }

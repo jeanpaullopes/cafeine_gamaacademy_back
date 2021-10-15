@@ -7,40 +7,39 @@ using System.Threading.Tasks;
 
 namespace Cafeine_DinDin_Backend.Services
 {
-    public class CourseService
+    public class CourseService : ICourseService
     {
-        private static CourseService instance;
-
-        private CourseService()
+        private CourseRepository _repo;
+        public CourseService(ApplicationDBContext context)
         {
-
+            _repo = new(context);
         }
-        public static CourseService GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new CourseService();
-            }
-            return instance;
-        }
+      
         public List<Course> GetCourses()
         {
-
-            CourseRepository _repo = CourseRepository.GetInstance();
             return _repo.FindAll();
         }
 
-        public Course GetCourse(string id)
+        public Course GetCourse(int id)
         {
-            CourseRepository _repo = CourseRepository.GetInstance();
             return _repo.Find(id);
         }
 
-        public Course PostCourse(Course course)
+        public async Task<Course> PostCourse(Course course)
         {
-            CourseRepository _repo = CourseRepository.GetInstance();
-            return _repo.save(course);
+            return await _repo.SaveCourse(course);
+        }
+        public Course UpdateCourse(Course course)
+        {
+            return _repo.UpdateCourse(course);
         }
 
+    }
+    public interface ICourseService
+    {
+        public List<Course> GetCourses();
+        public Course GetCourse(int id);
+        public Task<Course> PostCourse(Course course);
+        
     }
 }
