@@ -1,5 +1,6 @@
 ﻿using Cafeine_DinDin_Backend.Entities;
 using Cafeine_DinDin_Backend.Repositories;
+using Cafeine_DinDin_Backend.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,41 +8,44 @@ using System.Threading.Tasks;
 
 namespace Cafeine_DinDin_Backend.Services
 {
-    public class CourseService 
+    public class ImageService
     {
-        private CourseRepository _repo;
-        public CourseService(ApplicationDBContext context)
+        private ImageRepository _repo;
+
+        public ImageService(ApplicationDBContext context)
         {
             _repo = new(context);
         }
 
-        public List<Course> GetAllCourses()
+        public List<Image> GetAllImages()
         {
             return _repo.FindAll();
         }
 
-        public Course GetCourse(int id)
+        public Image GetImage(int id)
         {
             return _repo.Find(id);
         }
 
-        public async Task<Course> PostCourse(Course course)
+        public async Task<Image> PostImage(Image image)
         {
-            return await _repo.SaveCourse(course);
+            image.image = Conversor.DecodeFrom64ToBytes(image.image64);
+            return await _repo.SaveImage(image);
         }
-        public Course UpdateCourse(Course course)
+        public Image UpdateImage(Image image)
         {
-            return _repo.UpdateCourse(course);
+            image.image = Conversor.DecodeFrom64ToBytes(image.image64);
+            return _repo.UpdateImage(image);
         }
-        public int DeleteCourse(int id, string confirm)
+        public int DeleteImage(int id, string confirm)
         {
             int ret = 404;
-            Course course = GetCourse(id);
-            if (course != null)
+            Image image = GetImage(id);
+            if (image != null)
             {
                 if (confirm == "Yes")
                 {
-                    if (_repo.DeleteCourse(course))
+                    if (_repo.DeleteImage(image))
                     {
                         ret = 204; // no-Content
                     }
@@ -59,5 +63,4 @@ namespace Cafeine_DinDin_Backend.Services
             return ret;
         }
     }
-    
 }

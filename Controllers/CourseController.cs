@@ -19,7 +19,7 @@ namespace Cafeine_DinDin_Backend.Controllers
 
         public CourseController(ApplicationDBContext context)
         {
-            _courseService = new(context);// courseService;
+            _courseService = new(context);
                  
         }
 
@@ -27,7 +27,7 @@ namespace Cafeine_DinDin_Backend.Controllers
         public ActionResult<List<Course>> Get()
         {
          
-            return _courseService.GetCourses();
+            return _courseService.GetAllCourses();
         }
 
         [HttpGet("{id}", Name = "GetCourse ")]
@@ -37,7 +37,7 @@ namespace Cafeine_DinDin_Backend.Controllers
             //tratamento para caso não encontre
             if (course == null)
             {
-                return null;
+                return NotFound();
             }
 
             return course;
@@ -52,6 +52,15 @@ namespace Cafeine_DinDin_Backend.Controllers
         public Course Update(Course course)
         {
             return _courseService.UpdateCourse(course);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id, string confirm) 
+        {
+            int _operation = _courseService.DeleteCourse(id, confirm);
+            HttpContext.Response.StatusCode = _operation;
+
+            return new EmptyResult(); 
         }
     }
 }
