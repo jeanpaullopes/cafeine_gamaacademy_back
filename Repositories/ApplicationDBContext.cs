@@ -14,8 +14,9 @@ namespace Cafeine_DinDin_Backend.Repositories
 
         }
         public DbSet<Course> courses{ get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
-        
+        public DbSet<Teacher> teachers { get; set; }
+        public DbSet<Lesson> lessons { get; set; }
+        public DbSet<Image> images{ get; set; }
+
     }
 }

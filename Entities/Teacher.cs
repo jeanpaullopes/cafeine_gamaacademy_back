@@ -7,7 +7,7 @@ namespace Cafeine_DinDin_Backend.Entities
 {
     public class Teacher
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string nome { get; set; }
 
         

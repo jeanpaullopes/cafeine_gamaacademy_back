@@ -1,6 +1,4 @@
 ﻿using Cafeine_DinDin_Backend.Entities;
-using Cafeine_DinDin_Backend.Services;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,37 +6,34 @@ using System.Threading.Tasks;
 
 namespace Cafeine_DinDin_Backend.Repositories
 {
-    
-    public class CourseRepository
+    public class TeacherRepository
     {
-
         private readonly ApplicationDBContext _context;
-        public CourseRepository(ApplicationDBContext context)
+        public TeacherRepository(ApplicationDBContext context)
         {
-            _context = context;    
+            _context = context;
         }
-        
-        public List<Course> FindAll()
+        public List<Teacher> FindAll()
         {
             //uso do Include para carga ansiosa / Eager load
-            return _context.courses.Include(c => c.Teacher).Include(c => c.Lessons).ToList();
+            return _context.teachers.ToList();
         }
 
-        public Course Find(int id)
+        public Teacher Find(int id)
         {
-            return _context.courses.FirstOrDefault(c => c.ID == id); 
+            return _context.teachers.FirstOrDefault(t => t.ID == id);
         }
 
-        public Course save(Course course)
+        public Teacher save(Teacher teacher)
         {
-            
-            return course;
+
+            return teacher;
         }
-        public async Task<Course> SaveCourse(Course course)
+        public async Task<Teacher> SaveTeacher(Teacher teacher)
         {
             try
             {
-                var result = await _context.AddAsync(course);
+                var result = await _context.AddAsync(teacher);
                 await _context.SaveChangesAsync();
 
                 return result.Entity;
@@ -50,11 +45,11 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
 
         }
-        public Course UpdateCourse(Course course)
+        public Teacher UpdateTeacher(Teacher teacher)
         {
             try
             {
-                var result = _context.Update(course);
+                var result = _context.Update(teacher);
                 _context.SaveChanges();
                 return result.Entity;
 
@@ -65,13 +60,13 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
 
         }
-        public bool DeleteCourse(Course course)
+        public bool DeleteTeacher(Teacher teacher)
         {
             try
             {
-                var result = _context.Remove(course);
+                var result = _context.Remove(teacher);
                 _context.SaveChanges();
-                return (result.Entity.ID == course.ID);
+                return (result.Entity.ID == teacher.ID);
             }
             catch (Exception e)
             {
@@ -79,6 +74,5 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
 
         }
-
     }
 }

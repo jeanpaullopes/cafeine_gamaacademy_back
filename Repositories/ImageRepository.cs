@@ -1,6 +1,4 @@
 ﻿using Cafeine_DinDin_Backend.Entities;
-using Cafeine_DinDin_Backend.Services;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,37 +6,35 @@ using System.Threading.Tasks;
 
 namespace Cafeine_DinDin_Backend.Repositories
 {
-    
-    public class CourseRepository
+    public class ImageRepository
     {
-
         private readonly ApplicationDBContext _context;
-        public CourseRepository(ApplicationDBContext context)
+        public ImageRepository(ApplicationDBContext context)
         {
-            _context = context;    
+            _context = context;
         }
-        
-        public List<Course> FindAll()
+        public List<Image> FindAll()
         {
             //uso do Include para carga ansiosa / Eager load
-            return _context.courses.Include(c => c.Teacher).Include(c => c.Lessons).ToList();
+            return _context.images.ToList();
         }
 
-        public Course Find(int id)
+        public Image Find(int id)
         {
-            return _context.courses.FirstOrDefault(c => c.ID == id); 
+            var teer = _context.images.Find(id);
+            return teer;
         }
 
-        public Course save(Course course)
+        public Image save(Image image)
         {
-            
-            return course;
+
+            return image;
         }
-        public async Task<Course> SaveCourse(Course course)
+        public async Task<Image> SaveImage(Image image)
         {
             try
             {
-                var result = await _context.AddAsync(course);
+                var result = await _context.AddAsync(image);
                 await _context.SaveChangesAsync();
 
                 return result.Entity;
@@ -50,11 +46,11 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
 
         }
-        public Course UpdateCourse(Course course)
+        public Image UpdateImage(Image image)
         {
             try
             {
-                var result = _context.Update(course);
+                var result = _context.Update(image);
                 _context.SaveChanges();
                 return result.Entity;
 
@@ -65,13 +61,13 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
 
         }
-        public bool DeleteCourse(Course course)
+        public bool DeleteImage(Image image)
         {
             try
             {
-                var result = _context.Remove(course);
+                var result = _context.Remove(image);
                 _context.SaveChanges();
-                return (result.Entity.ID == course.ID);
+                return (result.Entity.ID == image.ID);
             }
             catch (Exception e)
             {
@@ -79,6 +75,5 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
 
         }
-
     }
 }

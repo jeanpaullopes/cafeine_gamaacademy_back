@@ -7,41 +7,41 @@ using System.Threading.Tasks;
 
 namespace Cafeine_DinDin_Backend.Services
 {
-    public class CourseService 
+    public class TeacherService
     {
-        private CourseRepository _repo;
-        public CourseService(ApplicationDBContext context)
+        private TeacherRepository _repo;
+        public TeacherService(ApplicationDBContext context)
         {
             _repo = new(context);
         }
 
-        public List<Course> GetAllCourses()
+        public List<Teacher> GetAllTeachers()
         {
             return _repo.FindAll();
         }
 
-        public Course GetCourse(int id)
+        public Teacher GetTeacher(int id)
         {
             return _repo.Find(id);
         }
 
-        public async Task<Course> PostCourse(Course course)
+        public async Task<Teacher> PostTeacher(Teacher teacher)
         {
-            return await _repo.SaveCourse(course);
+            return await _repo.SaveTeacher(teacher);
         }
-        public Course UpdateCourse(Course course)
+        public Teacher UpdateTeacher(Teacher teacher)
         {
-            return _repo.UpdateCourse(course);
+            return _repo.UpdateTeacher(teacher);
         }
-        public int DeleteCourse(int id, string confirm)
+        public int DeleteTeacher(int id, string confirm)
         {
             int ret = 404;
-            Course course = GetCourse(id);
-            if (course != null)
+            Teacher teacher = GetTeacher(id);
+            if (teacher != null)
             {
                 if (confirm == "Yes")
                 {
-                    if (_repo.DeleteCourse(course))
+                    if (_repo.DeleteTeacher(teacher))
                     {
                         ret = 204; // no-Content
                     }
@@ -59,5 +59,4 @@ namespace Cafeine_DinDin_Backend.Services
             return ret;
         }
     }
-    
 }

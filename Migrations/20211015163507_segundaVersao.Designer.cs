@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafeine_DinDin_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20211015075508_inicial")]
-    partial class inicial
+    [Migration("20211015163507_segundaVersao")]
+    partial class segundaVersao
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,8 +31,8 @@ namespace Cafeine_DinDin_Backend.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeacherID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("TeacherID")
+                        .HasColumnType("int");
 
                     b.Property<string>("UrlCover")
                         .HasColumnType("nvarchar(max)");
@@ -42,6 +42,21 @@ namespace Cafeine_DinDin_Backend.Migrations
                     b.HasIndex("TeacherID");
 
                     b.ToTable("courses");
+                });
+
+            modelBuilder.Entity("Cafeine_DinDin_Backend.Entities.Image", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("images");
                 });
 
             modelBuilder.Entity("Cafeine_DinDin_Backend.Entities.Lesson", b =>
@@ -70,20 +85,22 @@ namespace Cafeine_DinDin_Backend.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("lessons");
                 });
 
             modelBuilder.Entity("Cafeine_DinDin_Backend.Entities.Teacher", b =>
                 {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("nome")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("teachers");
                 });
 
             modelBuilder.Entity("Cafeine_DinDin_Backend.Entities.Course", b =>

@@ -42,6 +42,13 @@ namespace Cafeine_DinDin_Backend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cafeine_DinDin_Backend", Version = "v1" });
             });
 
+            // aplicação de filtro anti CSRF - Cross-Site Request Forgery
+            // não funciona com o swagger 
+            //services.AddMvc(options =>
+            //{
+            //    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
