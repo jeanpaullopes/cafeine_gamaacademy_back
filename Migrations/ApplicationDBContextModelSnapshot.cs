@@ -29,7 +29,7 @@ namespace Cafeine_DinDin_Backend.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TeacherID")
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<string>("UrlCover")
@@ -37,7 +37,7 @@ namespace Cafeine_DinDin_Backend.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("TeacherID");
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("courses");
                 });
@@ -88,15 +88,15 @@ namespace Cafeine_DinDin_Backend.Migrations
 
             modelBuilder.Entity("Cafeine_DinDin_Backend.Entities.Teacher", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("nome")
+                    b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("teachers");
                 });
@@ -105,7 +105,7 @@ namespace Cafeine_DinDin_Backend.Migrations
                 {
                     b.HasOne("Cafeine_DinDin_Backend.Entities.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherID");
+                        .HasForeignKey("TeacherId");
 
                     b.Navigation("Teacher");
                 });

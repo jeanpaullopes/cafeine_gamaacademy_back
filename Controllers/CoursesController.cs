@@ -12,12 +12,12 @@ namespace Cafeine_DinDin_Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CourseController : ControllerBase
+    public class CoursesController : ControllerBase
     {
         
         private CourseService _courseService;
 
-        public CourseController(ApplicationDBContext context)
+        public CoursesController(ApplicationDBContext context)
         {
             _courseService = new(context);
                  
