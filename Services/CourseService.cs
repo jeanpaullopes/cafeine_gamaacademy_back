@@ -58,6 +58,36 @@ namespace Cafeine_DinDin_Backend.Services
             }
             return ret;
         }
+
+
+        public int DeleteCourseLesson(int id, int idLesson, string confirm)
+        {
+            int ret = 404;
+            Course course = GetCourse(id);
+            if (course != null && course.ContainsLesson(idLesson))
+            {
+                if (confirm == "Yes")
+                {
+                    course.DeleteLesson(idLesson);
+                    if (_repo.save(course) != null)
+                    {
+                        ret = 204; // no-Content
+                    }
+                    else
+                    {
+                        ret = 418; // I’m a teapot
+                    }
+
+                }
+                else
+                {
+                    ret = 401;  //unathorized 
+                }
+            }
+            return ret;
+        }
+
+
     }
     
 }

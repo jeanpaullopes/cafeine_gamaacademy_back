@@ -62,5 +62,14 @@ namespace Cafeine_DinDin_Backend.Controllers
 
             return new EmptyResult(); 
         }
+
+        [HttpDelete("{id}/Lessons/{idLesson}")]
+        public ActionResult DeleteLesson(int id, int idLesson, string confirm)
+        {
+            int _operation = _courseService.DeleteCourseLesson(id, idLesson, confirm);
+            HttpContext.Response.StatusCode = _operation;
+
+            return new EmptyResult();
+        }
     }
 }

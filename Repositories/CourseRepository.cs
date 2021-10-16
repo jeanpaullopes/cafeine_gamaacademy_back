@@ -26,7 +26,7 @@ namespace Cafeine_DinDin_Backend.Repositories
 
         public Course Find(int id)
         {
-            return _context.courses.FirstOrDefault(c => c.ID == id); 
+            return _context.courses.Include(c => c.Teacher).Include(c => c.Lessons).FirstOrDefault(c => c.ID == id); 
         }
 
         public Course save(Course course)
@@ -78,6 +78,27 @@ namespace Cafeine_DinDin_Backend.Repositories
                 var result = _context.Remove(course);
                 _context.SaveChanges();
                 return (result.Entity.ID == course.ID);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+        public bool DeleteLesson(int id)
+        {
+            try
+            {
+                Lesson l = _context.lessons.Find(id);
+                if (l != null)
+                {
+                    var result = _context.lessons.Remove(l);
+                    _context.SaveChanges();
+                    return true;
+                } else
+                {
+                    return false;
+                }
             }
             catch (Exception e)
             {
