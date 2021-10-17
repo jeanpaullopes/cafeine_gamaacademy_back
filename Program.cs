@@ -20,9 +20,9 @@ namespace Cafeine_DinDin_Backend
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseStartup<Startup>();
                     // Para publicar
-                    //webBuilder.UseStartup<Startup>().UseUrls("http://*:5000");
+                    webBuilder.UseStartup<Startup>().UseUrls("http://*:5000");
 
                 });
     }

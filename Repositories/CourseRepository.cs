@@ -85,7 +85,7 @@ namespace Cafeine_DinDin_Backend.Repositories
             }
 
         }
-        public bool DeleteLesson(int id)
+        public bool DeleteLesson(Course course, int id)
         {
             try
             {
@@ -94,6 +94,7 @@ namespace Cafeine_DinDin_Backend.Repositories
                 {
                     var result = _context.lessons.Remove(l);
                     _context.SaveChanges();
+                    course.DeleteLesson(id);
                     return true;
                 } else
                 {

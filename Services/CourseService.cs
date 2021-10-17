@@ -68,7 +68,8 @@ namespace Cafeine_DinDin_Backend.Services
             {
                 if (confirm == "Yes")
                 {
-                    course.DeleteLesson(idLesson);
+                    _repo.DeleteLesson(course, idLesson);
+
                     if (_repo.save(course) != null)
                     {
                         ret = 204; // no-Content
