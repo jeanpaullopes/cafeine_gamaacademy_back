@@ -18,5 +18,6 @@ namespace Cafeine_DinDin_Backend.Repositories
         public DbSet<Lesson> lessons { get; set; }
         public DbSet<Image> images{ get; set; }
 
+
     }
 }
